@@ -45,22 +45,6 @@ public class TaobaoCodeDecodeServiceImpl extends BaseTaobaoServiceImpl implement
 	@Override
 	public Result<Page<MapData>> getData(PageQuery query) {
 		String keyword = query.getKeyword();
-//		String url = String.format("%s%s%s%s", "http://api.vephp.com/dec?vekey=V00000963Y49141262&para=", "￥",
-//				keyword.split("￥")[1], "￥");
-//		String title = query.getKeyword().replace("【", "").split("】")[0];
-//		ResponseEntity<String> response = this.restTemplate.getForEntity(url, String.class);
-//		System.err.println(response.getBody());
-//		TaobaoCodeDecodeResponse rsp = JSON.parseObject(response.getBody(), TaobaoCodeDecodeResponse.class);
-//		if (rsp.getError() != null && !rsp.getMsg().equals("产品已下架或非联盟产品"))
-//			ExceptionFactory.build(rsp.getMsg());
-//		if (rsp.getMsg() != null && rsp.getMsg().equals("产品已下架或非联盟产品")) {
-//			query.setKeyword(title);
-//			String json = taobaoService.findMaterialPage(query);
-//			Result<Page<MapData>> result = JSON.parseObject(json, new TypeReference<Result<Page<MapData>>>() {
-//			});
-//			return result;
-//		}
-
 		//使用淘宝客接口解析淘口令
 		String tkl ="￥"+keyword.split("￥")[1]+"￥";
 		String itemUrl = "";
