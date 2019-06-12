@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/order")
-@Api(value = "order", description = "订单相关")
-public class OrderController extends BaseController {
+@RequestMapping("/reply")
+@Api(value = "reply", description = "快速回复")
+public class ReplyController extends BaseController {
 
 
     @PostMapping("/getGroupOrders")

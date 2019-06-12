@@ -1,49 +1,31 @@
 package com.reactx.selection.models.base.exceptions;
 
-import com.reactx.selection.models.enums.ErrorEnum;
-import com.reactx.selection.restful.Result;
-import com.reactx.selection.restful.ResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
+import com.reactx.selection.models.base.Result;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import javax.servlet.http.HttpServletRequest;
 
-
+/**
+ * 异常处理器
+ * 
+ * @author eleven.
+ *
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler
-    @ResponseBody
-    public Result nullPointHandler(NullPointerException e) {
-        e.printStackTrace();
-        logger.warn(e.getMessage());
-        return ResultUtil.error(ErrorEnum.E_100000);
-    }
+	@ExceptionHandler(BaseException.class)
+	@ResponseBody
+	public Result<String> illegalPropExceptionHandler(HttpServletRequest request, BaseException exception)
+			throws Exception {
+		return new Result<String>("501", exception.getMessage());
+	}
 
-    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-    @ResponseBody
-    public Result methodNotSupportHandler(HttpRequestMethodNotSupportedException e) {
-        e.printStackTrace();
-        return ResultUtil.error(ErrorEnum.E_100001);
-    }
-
-    @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    @ResponseBody
-    public Result missingServletRequestParameterHandler(MissingServletRequestParameterException e) {
-        e.printStackTrace();
-        return ResultUtil.error(ErrorEnum.E_100002);
-    }
-
-    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
-    @ResponseBody
-    public Result sqlIntegrityConstraintViolationHandler(SQLIntegrityConstraintViolationException e) {
-        e.printStackTrace();
-        return ResultUtil.error(ErrorEnum.E_100003);
-    }
+	/*@ExceptionHandler(Exception.class)
+	@ResponseBody
+	public Result<String> exceptionHandler(HttpServletRequest request, Exception exception) throws Exception {
+		return ResponseUtil.getFaultResult();
+	}*/
 }
