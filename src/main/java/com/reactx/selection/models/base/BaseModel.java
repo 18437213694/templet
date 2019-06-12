@@ -14,25 +14,10 @@ public class BaseModel implements Serializable {
 	/**
 	 * jackson 基础数据过滤,只过滤BaseModel类中的字段
 	 * 
-	 * @author Mr.han
+	 * @author eleven.
 	 */
 	public interface BaseView {
 	};
 
-	/**
-	 * 主键ID
-	 */
-	// @ApiModelProperty("ID")
-	// @TableId(value = "id", type = IdType.AUTO)
-	// @JsonView({ BaseView.class })
-	// protected Long id;
-
-	// public Long getId() {
-	// return id;
-	// }
-	//
-	// public void setId(Long id) {
-	// this.id = id;
-	// }
 
 }
