@@ -64,6 +64,15 @@ public class KeguanShopServiceImpl extends BaseServiceImpl<KeguanShopMapper, Keg
 			List<KeguanWxcardinfo> cards = cardinfoService.findList(userId, shop.getId(), shop.getMerchantId().toString());
 			shop.setCards(cards);
 			shop.setCardNum(cards.size());
+			if(StringUtils.isNotBlank(cityName)){
+				shop.setCityName(cityName);
+			}else {
+				String name = baseMapper.findCityName(shop.getId());
+				if(StringUtils.isNotBlank(name) && name.equals("市辖区")){
+					name = baseMapper.findProvinceName(shop.getId());
+				}
+				shop.setCityName(name);
+			}
 		}
 		return list;
 	}

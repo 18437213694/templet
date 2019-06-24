@@ -159,6 +159,10 @@ public class KeguanShop extends BaseModel {
 	@ApiModelProperty("活动")
 	private KeguanActivity activity;
 
+	@TableField(exist = false)
+	@ApiModelProperty("所在城市名称")
+	private String cityName;
+
 	@ApiModelProperty("是否推荐")
 	private Boolean isRecommend;
 
