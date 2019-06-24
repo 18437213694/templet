@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reactx.selection.mappers.KeguanShopMapper">
+    <resultMap id="KeguanShopMapperMap" type="com.reactx.selection.models.data.local.KeguanShop">
+        <id column="id" property="id"/>
+        <result column="trading_area_id" property="tradingAreaId"/>
+        <result column="local_image" property="localImage" />
+        <result column="class_id" property="classId" />
+    </resultMap>
+    <select id="findPage" resultType="com.reactx.selection.models.data.local.KeguanShop" resultMap="KeguanShopMapperMap"><!-- resultMap="KeguanShopMapperMap"-->
+        SELECT s.* FROM keguan_shop s
+        LEFT JOIN keguan_district d ON s.provinceid = d.id
+      <where>
+           s.shopname is not null
+          and s.images is not null
+          and s.status > 0
+          <if test="shopName !=null and shopName!='' ">
+              and s.shopname like '%${shopName}%'
+          </if>
+        <if test="cityName !=null and cityName!='' ">
+            and d.CityName = #{cityName}
+        </if>
+      </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+    </select>
+
+
+    <select id="getAllCityByProvince" resultType="java.lang.String">
+        SELECT d.CityName FROM keguan_shop s LEFT JOIN keguan_district d ON s.provinceid = d.id
+        <where>
+            s.id in
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            GROUP BY s.provinceid
+        </where>
+    </select>
+
+</mapper>

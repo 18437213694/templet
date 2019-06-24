@@ -1,15 +1,19 @@
 package com.reactx.selection.web.controller.reactx;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.reactx.selection.models.base.BaseController;
 import com.reactx.selection.models.base.Result;
 import com.reactx.selection.models.data.response.HaoDanKuResponse;
 import com.reactx.selection.models.data.response.SpecialThemeResponse;
+import com.reactx.selection.models.data.taobao.query.OptimusMaterialQuery;
 import com.reactx.selection.service.reactx.HDKService;
+import com.reactx.selection.service.reactx.MaterialService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -32,6 +36,8 @@ public class RecommendationController extends BaseController {
 
     @Autowired
     HDKService hdkService;
+    @Autowired
+    private MaterialService materialService;
 
     @GetMapping("/getHotSale")
     @ApiOperation(value = "获取淘宝24小时热销榜", httpMethod = "GET", produces = "application/json;charset=UTF-8")
@@ -95,6 +101,17 @@ public class RecommendationController extends BaseController {
             haoDanKuResponse.setData(Collections.emptyList());
             return response(haoDanKuResponse);
         }
+    }
+
+    @GetMapping("/getRecommendPage")
+    @ApiOperation(value = "分页获取淘宝有好券接口（注意此接口未返回总条数）-http://open.taobao.com/api.htm?docId=33947&docType=2", httpMethod = "GET", produces = "application/json;charset=UTF-8")
+    @ApiImplicitParams({ @ApiImplicitParam(name = "pageNo", value = "当前页", paramType = "query", required = false),
+            @ApiImplicitParam(name = "pageSize", value = "分页大小", paramType = "query", required = false) })
+    public Result<Object> getRecommendPage(Long pageNo,Long pageSize) {
+        OptimusMaterialQuery query = new OptimusMaterialQuery();
+        query.setPageNo(pageNo);
+        query.setPageSize(pageSize);
+        return response(materialService.optimusMaterialPage(query));
     }
 
     private String sendGet(String url) {

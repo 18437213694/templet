@@ -12,4 +12,6 @@ public interface ReplyService extends BaseService<ErmReply> {
     List<ErmReply> queryReply(Integer subGroupId);
 
     void insertReply(ErmReply ermReply);
+
+    List<ErmReply> queryAllReply(String wechatid);
 }

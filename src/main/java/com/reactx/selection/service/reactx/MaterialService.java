@@ -11,6 +11,8 @@ import com.taobao.api.response.TbkDgMaterialOptionalResponse.MapData;
 import com.taobao.api.response.TbkItemInfoGetResponse.NTbkItem;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 物料
@@ -36,6 +38,15 @@ public interface MaterialService {
 	List<NTbkItem> getItemInfo(String itemId, String ip) throws ApiException;
 
 	/**
+	 * 获取商品类目
+	 *
+	 * @param itemId
+	 * @param ip
+	 * @return
+	 */
+	Map<String,String> getItemCategory(Set<String> itemId, String ip) throws ApiException;
+
+	/**
 	 * 创建淘口令
 	 * 
 	 * @param request
@@ -50,7 +61,6 @@ public interface MaterialService {
 	 * @param query
 	 * @return
 	 */
-	Page<com.taobao.api.response.TbkDgOptimusMaterialResponse.MapData> optimusMaterialPage(OptimusMaterialQuery query)
-			throws ApiException;
+	Page<com.taobao.api.response.TbkDgOptimusMaterialResponse.MapData> optimusMaterialPage(OptimusMaterialQuery query);
 
 }

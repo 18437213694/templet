@@ -21,15 +21,15 @@ public class RestTemplateConfig {
         return restTemplate;
     }
 
-    @Bean(value = "innerRestTemplate")
-    @LoadBalanced
-    public RestTemplate innerRestTemplate(@Qualifier("restTempleClientHttpRequestFactory") ClientHttpRequestFactory factory) {
-        RestTemplate restTemplate = new RestTemplate(factory);
-
-        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-
-        return restTemplate;
-    }
+//    @Bean(value = "innerRestTemplate")
+//    @LoadBalanced
+//    public RestTemplate innerRestTemplate(@Qualifier("restTempleClientHttpRequestFactory") ClientHttpRequestFactory factory) {
+//        RestTemplate restTemplate = new RestTemplate(factory);
+//
+//        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
+//
+//        return restTemplate;
+//    }
 
     @Bean(value = "restTempleClientHttpRequestFactory")
     public ClientHttpRequestFactory restTempleClientHttpRequestFactory() {

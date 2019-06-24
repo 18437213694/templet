@@ -18,5 +18,8 @@ public interface ReplyMapper extends BaseMapper<ErmReply> {
     @Insert("insert into erm_reply values(null,#{title},#{content},#{groupId},NOW())")
     void insertReply(ErmReply ermReply);
 
-
+//    @Select("select id,title,content,class_id classId,class_name className from erm_reply where (class_id = 1) or (class_id = 2 and wechatid=#{wechatid}) order by creat_time desc")
+    @Select("SELECT t.t_name,q.q_name,e.content,e.question_id questionId,e.type_id typeId FROM erm_reply e,erm_reply_type t,erm_reply_question q WHERE e.question_id = q.id AND e.type_id=t.id AND " +
+            "((t.id = 2) OR (t.id = 1 AND e.wechatid = #{wechatid})) ORDER BY e.creat_time DESC")
+    List<ErmReply> queryAllReply(String wechatid);
 }

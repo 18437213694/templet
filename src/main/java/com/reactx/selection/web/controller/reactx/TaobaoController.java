@@ -42,18 +42,6 @@ public class TaobaoController extends BaseController {
 			@ApiImplicitParam(name = "startPrice", value = "折扣价范围下限，单位：元", paramType = "query", required = false)})
 	@ApiResponse(code = 200, message = "Ok", response = Result.class)
 	public Result<Object> findPageByKeyword(PageQuery query, HttpServletRequest request) {
-//		if (LongUtil.isBlank(query.getUserId()) && StringUtils.isBlank(query.getOpenId()))
-//			return JSON.toJSONString(responseMsg("用户id和openid不能同时不能为空"));
-//		ImsSeller seller;
-//		if (LongUtil.isNotBlank(query.getUserId()))
-//			seller = sellerService.selectById(query.getUserId());
-//		else
-//			seller = sellerService.findByWechatid(query.getWechatid());
-//		ImsSeller seller = sellerService.find(query.getUnionid());
-//		if (seller == null)
-//			return JSON.toJSONString(responseMsg("用户不存在"));
-//		if (StringUtils.isBlank(seller.getAdzoneid()))
-//			return JSON.toJSONString(responseMsg("用户的推广位id为空"));
 		query.setAdzoneId(Long.parseLong("65231850041"));
 		query.setIp(CusAccessObjectUtil.getIpAddress(request));
 		if (StringUtils.isBlank(query.getKeyword()))
@@ -90,12 +78,12 @@ public class TaobaoController extends BaseController {
 	@GetMapping("/getItemInfo")
 	@ApiOperation(value = "获取商品详情", httpMethod = "GET", produces = "application/json;charset=UTF-8")
 	@ApiImplicitParams(@ApiImplicitParam(name = "itemId", value = "商品id", paramType = "query", required = true))
-	public Result<Object> getItemInfo(@RequestParam("itemId") String itemId, @RequestParam("ip") String ip) {
+	public Result<Object> getItemInfo(@RequestParam("itemId") String itemId) {
 		try {
 			if (StringUtils.isBlank(itemId)) {
 				return responseMsg("id不能为空");
 			}
-			return response(materialService.getItemInfo(itemId, ip));
+			return response(materialService.getItemInfo(itemId, ""));
 		} catch (ApiException e) {
 			e.printStackTrace();
 			return responseMsg(e.getMessage());
@@ -145,14 +133,14 @@ public class TaobaoController extends BaseController {
 	 * @param query
 	 * @return
 	 */
-	@PostMapping("/optimusMaterialPage")
-	public Result<Object> optimusMaterialPage(@RequestBody OptimusMaterialQuery query) {
-		try {
-			return response(materialService.optimusMaterialPage(query));
-		} catch (ApiException e) {
-			e.printStackTrace();
-			return responseMsg(e.getMessage());
-		}
-	}
+//	@PostMapping("/optimusMaterialPage")
+//	public Result<Object> optimusMaterialPage(@RequestBody OptimusMaterialQuery query) {
+//		try {
+//			return response(materialService.optimusMaterialPage(query));
+//		} catch (ApiException e) {
+//			e.printStackTrace();
+//			return responseMsg(e.getMessage());
+//		}
+//	}
 
 }

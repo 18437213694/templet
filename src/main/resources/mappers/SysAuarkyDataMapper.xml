@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reactx.selection.mappers.SysAuarkyDataMapper">
+
+    <select id="findPage" resultType="com.reactx.selection.models.data.pinduoduo.SysAutarkyData">
+        SELECT small_images smallImages,item_id itemId,item_url itemUrl,num,original_price originalPrice,price,sale_num saleNum,
+            status,title FROM sys_autarky_data sysAutarkyData
+        <where>
+            `status` = 1
+            <if test="keyword != '' and keyword !=null">
+                and title like '%${keyword}%'
+            </if>
+            <if test="sortType == '1'">
+            order by sale_num
+            </if>
+            <if test="sortType == '2'">
+                order by sale_num desc
+            </if>
+            <if test="sortType == '3'">
+                order by price
+            </if>
+            <if test="sortType == '4'">
+                order by price desc
+            </if>
+        </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+
+    </select>
+
+
+
+    <select id="getCount" resultType="java.lang.Long">
+        SELECT count(1) FROM sys_autarky_data sysAutarkyData
+        <where>
+            `status` = 1
+            <if test="keyword != '' and keyword !=null">
+                and title like '%${keyword}%'
+            </if>
+        </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+
+    </select>
+
+</mapper>

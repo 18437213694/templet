@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reactx.selection.mappers.ImsTaobaoOrderMapper">
+
+    <select id="getOrderListByUser" resultType="com.reactx.selection.models.data.index.ImsTaobaoOrder">
+        SELECT platform,goodsid,orderstatus,issettle,create_time createTime,ordersn,price,estimatecome FROM ims_taobao_order
+        <where>
+            sellerid = #{userId}
+            <if test="startTime != '' and startTime != null">
+                and create_time >= #{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+            <if test="status != '' and status == '待结算'">
+                and  orderstatus in (1,2)
+            </if>
+            <if test="status != '' and status == '已失效'">
+                and  orderstatus = 0
+            </if>
+            <if test="status != '' and status == '已结算'">
+                and  issettle = 3
+            </if>
+            <if test="source != ''  and source != null">
+                and  platform = #{source}
+            </if>
+            <if test="orderNum != '' and orderNum != null">
+                and  ordersn = #{orderNum}
+            </if>
+            ORDER BY create_time desc
+        </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+
+    </select>
+
+
+    <select id="getOrderListByUserSum" resultType="java.lang.Integer">
+        SELECT count(1) FROM ims_taobao_order
+        <where>
+            sellerid = #{userId}
+            <if test="startTime != '' and startTime != null">
+                and create_time >= #{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+            <if test="status != '' and status == '待结算'">
+                and  orderstatus in (1,2)
+            </if>
+            <if test="status != '' and status == '已失效'">
+                and  orderstatus = 0
+            </if>
+            <if test="status != '' and status == '已结算'">
+                and  issettle = 3
+            </if>
+            <if test="source != ''  and source != null">
+                and  platform = #{source}
+            </if>
+            <if test="orderNum != '' and orderNum != null">
+                and  ordersn = #{orderNum}
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="getOrderListByGroup" resultType="com.reactx.selection.models.data.index.ImsTaobaoOrder">
+        SELECT platform,sellerid,goodsid,orderstatus,issettle,create_time createTime,ordersn,price,estimatecome FROM ims_taobao_order
+        <where>
+            sellerid in
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="startTime != '' and startTime != null">
+                and create_time >= #{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+            <if test="status != '' and status == '待结算'">
+                and  orderstatus in (1,2)
+            </if>
+            <if test="status != '' and status == '已失效'">
+                and  orderstatus = 0
+            </if>
+            <if test="status != '' and status == '已结算'">
+                and  issettle = 3
+            </if>
+            <if test="source != '' and source != null">
+                and  platform = #{source}
+            </if>
+            <if test="orderNum != '' and orderNum != null">
+                and  ordersn = #{orderNum}
+            </if>
+            ORDER BY create_time desc
+        </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+
+    </select>
+
+    <select id="getOrderListByGroupSum" resultType="java.lang.Integer">
+        SELECT count(1) FROM ims_taobao_order
+        <where>
+            sellerid in
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="startTime != '' and startTime != null">
+                and create_time >= #{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and create_time &lt; #{endTime}
+            </if>
+            <if test="status != '' and status == '待结算'">
+                and  orderstatus in (1,2)
+            </if>
+            <if test="status != '' and status == '已失效'">
+                and  orderstatus = 0
+            </if>
+            <if test="status != '' and status == '已结算'">
+                and  issettle = 3
+            </if>
+            <if test="source != '' and source != null">
+                and  platform = #{source}
+            </if>
+            <if test="orderNum != '' and orderNum != null">
+                and  ordersn = #{orderNum}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

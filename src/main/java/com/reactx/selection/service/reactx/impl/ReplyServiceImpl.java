@@ -29,4 +29,9 @@ public class ReplyServiceImpl extends BaseServiceImpl<ReplyMapper, ErmReply> imp
         ermReply.setId(null);
         replyMapper.insertReply(ermReply);
     }
+
+    @Override
+    public List<ErmReply> queryAllReply(String wechatid) {
+        return replyMapper.queryAllReply(wechatid);
+    }
 }

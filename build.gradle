@@ -41,15 +41,21 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.2'
-    compile 'org.projectlombok:lombok:1.18.2'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
-    testCompile 'org.projectlombok:lombok:1.18.2'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+//    compile 'org.projectlombok:lombok:1.18.2'
+//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
+    annotationProcessor 'org.projectlombok:lombok:1.16.10'
+    compile 'org.projectlombok:lombok:1.16.10'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.16.10'
+    testCompile 'org.projectlombok:lombok:1.16.10'
+    /*testCompile 'org.projectlombok:lombok:1.18.2'*/
 
     compile 'org.springframework.boot:spring-boot-starter-data-redis:2.0.3.RELEASE'
     compileOnly 'org.springframework.boot:spring-boot-starter-tomcat:2.0.3.RELEASE'
     compile 'org.apache.httpcomponents:httpclient:4.5.6'
     compile fileTree(dir:'lib',includes:['*jar'])
+
+    compile 'commons-beanutils:commons-beanutils:1.9.3'
 }
 
 

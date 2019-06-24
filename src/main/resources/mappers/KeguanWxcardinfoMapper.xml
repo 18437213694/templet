@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reactx.selection.mappers.KeguanWxcardinfoMapper">
+    <resultMap id="KeguanWxcardinfoMap" type="com.reactx.selection.models.data.local.KeguanWxcardinfo">
+        <id column="id" property="id"/>
+        <result column="reduce_money" property="reduceMoney"/>
+        <result column="least_money_to_use" property="leastMoneyToUse" />
+        <result column="max_increase_bonus" property="maxIncreaseBonus" />
+    </resultMap>
+    <select id="findPage" resultType="com.reactx.selection.models.data.local.KeguanWxcardinfo" resultMap="KeguanWxcardinfoMap">
+        select kw.* from keguan_wxcardinfo kw
+        <where>
+            kw.cardstatus in ('CARD_STATUS_DISPATCH', 'CARD_STATUS_VERIFY_OK') and
+            ((kw.date_type='DATE_TYPE_FIX_TIME_RANGE' and kw.endtime > NOW()) or kw.date_type='DATE_TYPE_FIX_TERM') and
+            <![CDATA[
+        kw.cardnumber>0 and
+        kw.cardtype <> 'MEMBER_CARD'
+         ]]>
+            <if test="shopId != null and shopId != ''">
+                AND
+                (kw.shopids = #{shopId} or (shopids is null))
+            </if>
+            and (
+                kw.merchantid = #{merchantid}
+                OR kw.submid = (
+                    SELECT
+                    merchant_id
+                    FROM
+                    keguan_submerchant  where  AccountId  = #{merchantid} and (status=0 OR status=2))
+               )
+        </where>
+        order by kw.id desc
+
+    </select>
+</mapper>

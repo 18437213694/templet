@@ -25,17 +25,27 @@ public class ErmReply extends BaseModel {
     @ApiModelProperty("主键id")
     private Integer id;
 
-    @TableField("title")
-    @ApiModelProperty("标题")
-    private String title;
+    @TableField("question_id")
+    @ApiModelProperty("问题id")
+    private Long questionId;
 
     @TableField("content")
     @ApiModelProperty("内容")
     private String content;
 
-    @TableField("group_id")
-    @ApiModelProperty("分组id")
-    private String groupId;
+    @TableField("type_id")
+    @ApiModelProperty("类型id")
+    private Integer typeId;
 
+    @TableField("wechatid")
+    @ApiModelProperty("微信id")
+    private String wechatid;
 
+    @TableField(exist = false)
+    @ApiModelProperty("话术类型")
+    private String t_name;
+
+    @TableField(exist = false)
+    @ApiModelProperty("问题")
+    private String q_name;
 }
