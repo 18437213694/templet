@@ -1,4 +1,4 @@
-package com.reactx.selection.service.reactx;
+package com.reactx.selection.service.reactx.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.reactx.selection.models.base.BaseService;
