@@ -26,6 +26,25 @@
         </if>
     </select>
 
+    <select id="findPageByCity" resultType="com.reactx.selection.models.data.local.KeguanShop" resultMap="KeguanShopMapperMap"><!-- resultMap="KeguanShopMapperMap"-->
+        SELECT s.* FROM keguan_shop s
+        LEFT JOIN keguan_district d ON s.cityid = d.id
+        <where>
+            s.shopname is not null
+            and s.images is not null
+            and s.status > 0
+            <if test="shopName !=null and shopName!='' ">
+                and s.shopname like '%${shopName}%'
+            </if>
+            <if test="cityName !=null and cityName!='' ">
+                and d.CityName = #{cityName}
+            </if>
+        </where>
+        <if test="pageNo != '' and pageNo != null">
+            limit ${(pageNo - 1)*pageSize},${pageSize}
+        </if>
+    </select>
+
 
     <select id="getAllCityByProvince" resultType="java.lang.String">
         SELECT d.CityName FROM keguan_shop s LEFT JOIN keguan_district d ON s.provinceid = d.id

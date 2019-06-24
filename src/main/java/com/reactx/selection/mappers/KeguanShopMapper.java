@@ -22,4 +22,7 @@ public interface KeguanShopMapper extends BaseMapper<KeguanShop> {
 
       List<KeguanShop> findPage(@Param("cityName") String cityName,@Param("shopName") String shopName,
                                 @Param("pageSize") Integer pageSize,@Param("pageNo") Integer pageNo);
+
+      List<KeguanShop> findPageByCity(@Param("cityName") String cityName,@Param("shopName") String shopName,
+                                @Param("pageSize") Integer pageSize,@Param("pageNo") Integer pageNo);
 }

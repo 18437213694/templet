@@ -2,7 +2,6 @@ package com.reactx.selection.service.reactx.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.reactx.selection.mappers.KeguanShopMapper;
 import com.reactx.selection.models.base.BaseServiceImpl;
 import com.reactx.selection.models.data.index.ImsSeller;
@@ -10,6 +9,7 @@ import com.reactx.selection.models.data.local.KeguanActivity;
 import com.reactx.selection.models.data.local.KeguanShop;
 import com.reactx.selection.models.data.local.KeguanWxcardinfo;
 import com.reactx.selection.service.reactx.ImsSellerService;
+import com.reactx.selection.service.reactx.KeguanShopService;
 import com.reactx.selection.service.reactx.KeguanWxcardinfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,10 @@ public class KeguanShopServiceImpl extends BaseServiceImpl<KeguanShopMapper, Keg
 
 	@Override
 	public List<KeguanShop> findPage(String cityName,String shopName,Integer pageSize,Integer pageNo,String wechatid) {
-		List<KeguanShop> list = this.baseMapper.findPage(cityName,shopName,pageSize,pageNo);
+		List<KeguanShop> list = this.baseMapper.findPage(cityName,shopName,pageSize,pageNo);//通过直辖市查询，取s.provinceid
+		if(list.size() == 0){
+			list = this.baseMapper.findPageByCity(cityName,shopName,pageSize,pageNo);//取s.cityid
+		}
 		for (KeguanShop shop : list) {
 			String userId = null;
 			if(StringUtils.isNotBlank(wechatid)){
