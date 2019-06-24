@@ -1,6 +1,5 @@
-package com.reactx.selection.service.reactx.impl;
+package com.reactx.selection.service.reactx;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.reactx.selection.models.base.BaseService;
 import com.reactx.selection.models.data.local.KeguanShop;
 
