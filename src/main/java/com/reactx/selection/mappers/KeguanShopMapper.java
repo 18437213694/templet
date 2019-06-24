@@ -25,4 +25,11 @@ public interface KeguanShopMapper extends BaseMapper<KeguanShop> {
 
       List<KeguanShop> findPageByCity(@Param("cityName") String cityName,@Param("shopName") String shopName,
                                 @Param("pageSize") Integer pageSize,@Param("pageNo") Integer pageNo);
+
+
+      @Select("SELECT d.CityName FROM keguan_shop s LEFT JOIN keguan_district d ON s.cityid = d.id where s.id= #{id}")
+      String findCityName(@Param("id") Long id);
+
+      @Select("SELECT d.CityName FROM keguan_shop s LEFT JOIN keguan_district d ON s.provinceid = d.id where s.id= #{id}")
+      String findProvinceName(@Param("id") Long id);
 }

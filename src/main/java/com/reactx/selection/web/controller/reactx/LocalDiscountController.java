@@ -40,6 +40,12 @@ public class LocalDiscountController extends BaseController {
             @ApiImplicitParam(name = "pageNo", value = "当前页", paramType = "query", required = false),
             @ApiImplicitParam(name = "wechatid", value = "微信id", paramType = "query", required = false)})
     public Result<Object> getLocalShop(String cityName,String shopName,Integer pageSize,Integer pageNo,String wechatid) {
+         if(StringUtils.isNotBlank(cityName) && StringUtils.isNotBlank(shopName)){
+            return responseMsg("201","市名称和门店名称不能同时存在");
+         }
+        if(StringUtils.isBlank(cityName) && StringUtils.isBlank(shopName)){
+           return responseMsg("202","市名称和门店名称不能同时为空");
+        }
         //url解码
         if(StringUtils.isNotBlank(cityName) && cityName.contains("%")){
             try {
