@@ -35,8 +35,8 @@ public class TaobaoCodeDecodeServiceImpl extends BaseTaobaoServiceImpl implement
 	private static final Logger logger = LoggerFactory.getLogger(TaobaoCodeDecodeServiceImpl.class);
 
 	private static String appurl = "http://gw.api.taobao.com/router/rest";
-	private static String appKey = "25327447";
-	private static String appSecret = "6fdc222ab2dfb74ff308b961c991be71";
+	private static String appKey = "*******";
+	private static String appSecret = "*********************";
 
 	@Autowired
 	MaterialService materialService;
